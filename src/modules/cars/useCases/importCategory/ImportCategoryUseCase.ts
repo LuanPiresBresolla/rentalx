@@ -32,6 +32,7 @@ class ImportCategoryUseCase {
           categories.push({ name, description });
         })
         .on('end', () => {
+          fs.promises.unlink(file.path);
           // Quando terminar todo o processo de leitura finaliza a promise
           resolve(categories);
         })
