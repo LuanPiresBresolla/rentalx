@@ -1,10 +1,31 @@
+# Versão do docker-compose
 version: "3.7"
 
 services:
-  app:
+  database_ignite: # Subindo BD Postgres
+    image: postgres
+    container_name: postgres_ignite
+    restart: always
+    ports: 
+      - 5432:5432
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=rentx
+    volumes: 
+      - pgdata:/data/postgres    
+  app: # Subindo aplicação
     build: .
     container_name: rentx
     ports: 
       - 3333:3333
     volumes:
-      - .:/usr/app
+      - .:/usr/app # Copiando arquivos da pasta raiz para o caminho descrito
+    links: 
+      - database_ignite # Link do container APP com DATABASE_IGNITE
+    depends_on: 
+      - database_ignite # Informando que o APP depende do BD
+
+volumes: 
+  pgdata:
+    driver: local
