@@ -1,22 +1,36 @@
-import { Specification } from '../../models/Specification';
+import { inject, injectable } from 'tsyringe';
+
+import { Specification } from '../../entities/Specification';
 import {
-  ICategoriesRepository,
-  ICreateCategoryDTO,
-} from '../../repositories/ICategoriesRepository';
+  ICreateSpecificaitonDTO,
+  ISpecificationsRepository,
+} from '../../repositories/ISpecificationsRepository';
 
+@injectable()
 class CreateSpecificationUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository) {}
+  constructor(
+    @inject('SpecificationsRepository')
+    private specificationsRepository: ISpecificationsRepository,
+  ) {}
 
-  execute({ name, description }: ICreateCategoryDTO): Specification {
-    const categoryAlreadyExists = this.categoriesRepository.findByName(name);
+  async execute({
+    name,
+    description,
+  }: ICreateSpecificaitonDTO): Promise<Specification> {
+    const specificationAlreadyExists = await this.specificationsRepository.findByName(
+      name,
+    );
 
-    if (categoryAlreadyExists) {
+    if (specificationAlreadyExists) {
       throw new Error('Specification already exists');
     }
 
-    const category = this.categoriesRepository.create({ name, description });
+    const specification = await this.specificationsRepository.create({
+      name,
+      description,
+    });
 
-    return category;
+    return specification;
   }
 }
 
