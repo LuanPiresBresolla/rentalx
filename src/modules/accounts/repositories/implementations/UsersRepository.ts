@@ -5,16 +5,28 @@ import { User } from '../../entities/User';
 import { IUsersRepository } from '../IUsersRepository';
 
 class UsersRepository implements IUsersRepository {
-  private repository: Repository<User>;
+  private ormRepository: Repository<User>;
 
   constructor() {
-    this.repository = getRepository(User);
+    this.ormRepository = getRepository(User);
   }
 
   async create(data: ICreateUserDTO): Promise<User> {
-    const user = this.repository.create(data);
+    const user = this.ormRepository.create(data);
 
-    await this.repository.save(user);
+    await this.ormRepository.save(user);
+
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.ormRepository.findOne({ email });
+
+    return user;
+  }
+
+  async findById(id: string): Promise<User> {
+    const user = await this.ormRepository.findOne(id);
 
     return user;
   }
