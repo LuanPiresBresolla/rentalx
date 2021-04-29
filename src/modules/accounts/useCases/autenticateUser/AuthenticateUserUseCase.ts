@@ -2,8 +2,9 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '../../../../errors/AppError';
-import { User } from '../../entities/User';
+import { User } from '@modules/accounts/infra/typeorm/entities/User';
+import { AppError } from '@shared/errors/AppError';
+
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 
 interface IRequeset {

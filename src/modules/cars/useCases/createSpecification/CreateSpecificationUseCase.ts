@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { AppError } from '../../../../errors/AppError';
-import { Specification } from '../../entities/Specification';
+import { Specification } from '@modules/cars/infra/typeorm/entities/Specification';
+import { AppError } from '@shared/errors/AppError';
+
 import {
   ICreateSpecificaitonDTO,
   ISpecificationsRepository,
