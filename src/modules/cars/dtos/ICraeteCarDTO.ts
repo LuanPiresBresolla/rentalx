@@ -4,7 +4,7 @@ export interface ICreateCarDTO {
   description: string;
   daily_rate: number;
   license_plate: string;
-  file_amount: number;
+  fine_amount: number;
   brand: string;
   category_id: string;
   available?: boolean;
