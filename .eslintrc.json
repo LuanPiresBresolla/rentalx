@@ -40,21 +40,11 @@
     "no-shadow": "off",
     "no-console": "off",
     "no-useless-constructor": "off",
-    "no-empty-function": "off",
-    "lines-between-class-members": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
       {
         "ts": "never"
-      }
-    ],
-    "import-helpers/order-imports": [
-      "warn",
-      {
-        "newlinesBetween": "always",
-        "groups": ["module", "/^@/", ["parent", "sibling", "index"]],
-        "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ],
     "import/no-extraneous-dependencies": [
