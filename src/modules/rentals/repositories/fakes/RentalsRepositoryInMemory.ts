@@ -15,6 +15,8 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
       updated_at: new Date(),
     });
 
+    this.rentals.push(rental);
+
     return rental;
   }
 

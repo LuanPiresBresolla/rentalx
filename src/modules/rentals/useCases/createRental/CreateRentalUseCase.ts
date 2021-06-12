@@ -40,7 +40,7 @@ class CreateRentalUseCase {
     );
 
     if (rentalOpenToUser) {
-      throw new AppError(`There's a rental in progress for user`);
+      throw new AppError('Theres a rental in progress for user');
     }
 
     const compare = this.dateProvider.compareInHours(

@@ -11,7 +11,7 @@ let carsRepositoryInMemory: CarsRepositoryInMemory;
 let dayjsDateProvider: DayjsDateProvider;
 
 describe('Create Rental', () => {
-  const dayAdd24Hours = dayjs().add(1, 'day').toDate();
+  const dayAdd24Hours = dayjs().add(2, 'day').toDate();
 
   beforeEach(() => {
     rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
@@ -64,15 +64,15 @@ describe('Create Rental', () => {
 
   it('should not be able to create a new rental if there is another open to the same car', async () => {
     await rentalsRepositoryInMemory.create({
-      car_id: 'test',
-      user_id: 'test',
+      car_id: 'testando_car_id',
+      user_id: '489778',
       expected_return_date: dayAdd24Hours,
     });
 
     await expect(
       createRentalUseCase.execute({
-        car_id: 'test',
-        user_id: 'aaa2',
+        car_id: 'testando_car_id',
+        user_id: 'asd2134132',
         expected_return_date: dayAdd24Hours,
       }),
     ).rejects.toEqual(new AppError('Car is unavailable'));
@@ -83,7 +83,7 @@ describe('Create Rental', () => {
       createRentalUseCase.execute({
         car_id: 'tedasdasdst',
         user_id: 'aaaaa1231a2',
-        expected_return_date: dayjs().toDate(),
+        expected_return_date: dayjsDateProvider.dateNow(),
       }),
     ).rejects.toEqual(new AppError('Invalid return time'));
   });
