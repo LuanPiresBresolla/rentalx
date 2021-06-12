@@ -28,6 +28,10 @@ class UsersTokensRepository implements IUsersTokensRepository {
   ): Promise<UserToken> {
     return this.repository.findOne({ user_id, refresh_token });
   }
+
+  async findByRefreshToken(refresh_token: string): Promise<UserToken> {
+    return this.repository.findOne({ refresh_token });
+  }
 }
 
 export { UsersTokensRepository };
